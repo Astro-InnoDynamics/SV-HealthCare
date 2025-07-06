@@ -50,31 +50,94 @@ const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
   return (
     <div className="fixed inset-0 bg-gradient-hero flex items-center justify-center z-50">
       <div className="text-center space-y-8">
-        {/* Animated Logo */}
+        {/* Animated Text Logo */}
         <motion.div
-          initial={{ scale: 0, rotate: -180 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="relative"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="text-center relative"
         >
-          <motion.img
-            src={medicalLogo}
-            alt="SV Healthcare Logo"
-            className="w-32 h-32 mx-auto"
-            animate={{ 
-              y: [0, -10, 0],
-              rotateY: [0, 360]
-            }}
+          {/* Professional Business SV Logo */}
+          <div className="text-8xl font-bold text-white mb-4 tracking-wider">
+            <motion.span
+              className="inline-block relative"
+              initial={{ opacity: 0, scale: 0.5, rotateY: -90 }}
+              animate={{ 
+                opacity: 1, 
+                scale: 1,
+                rotateY: 0,
+                textShadow: [
+                  "0 0 20px rgba(255,255,255,0.3)",
+                  "0 0 40px rgba(255,255,255,0.6)",
+                  "0 0 20px rgba(255,255,255,0.3)"
+                ]
+              }}
+              transition={{ 
+                opacity: { duration: 0.8 },
+                scale: { duration: 0.8, ease: "easeOut" },
+                rotateY: { duration: 0.8, ease: "easeOut" },
+                textShadow: { duration: 2, repeat: 2 }
+              }}
+            >
+              S
+              <motion.div
+                className="absolute -bottom-3 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ 
+                  delay: 0.8,
+                  duration: 0.5,
+                  ease: "easeOut"
+                }}
+              />
+            </motion.span>
+            <motion.span
+              className="inline-block ml-4 relative"
+              initial={{ opacity: 0, scale: 0.5, rotateY: 90 }}
+              animate={{ 
+                opacity: 1, 
+                scale: 1,
+                rotateY: 0,
+                textShadow: [
+                  "0 0 20px rgba(255,255,255,0.3)",
+                  "0 0 40px rgba(255,255,255,0.6)",
+                  "0 0 20px rgba(255,255,255,0.3)"
+                ]
+              }}
+              transition={{ 
+                opacity: { duration: 0.8, delay: 0.2 },
+                scale: { duration: 0.8, delay: 0.2, ease: "easeOut" },
+                rotateY: { duration: 0.8, delay: 0.2, ease: "easeOut" },
+                textShadow: { duration: 2, repeat: 2, delay: 0.2 }
+              }}
+            >
+              V
+              <motion.div
+                className="absolute -top-3 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ 
+                  delay: 1.0,
+                  duration: 0.5,
+                  ease: "easeOut"
+                }}
+              />
+            </motion.span>
+          </div>
+          
+          {/* HEALTHCARE text */}
+          <motion.div 
+            className="text-3xl font-light text-white/90 tracking-widest"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ 
-              y: { duration: 2, repeat: Infinity, ease: "easeInOut" },
-              rotateY: { duration: 4, repeat: Infinity, ease: "linear" }
+              delay: 1.5,
+              duration: 0.6,
+              ease: "easeOut"
             }}
-          />
-          <motion.div
-            className="absolute inset-0 w-32 h-32 mx-auto border-4 border-primary-light rounded-full"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-          />
+          >
+            HEALTHCARE
+          </motion.div>
         </motion.div>
 
         {/* Company Name Animation */}
@@ -83,19 +146,7 @@ const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 1 }}
         >
-          <motion.h1 
-            className="text-6xl font-heading font-bold text-white mb-4"
-            animate={{ 
-              textShadow: [
-                "0 0 20px rgba(255,255,255,0.5)",
-                "0 0 40px rgba(255,255,255,0.8)",
-                "0 0 20px rgba(255,255,255,0.5)"
-              ]
-            }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            SV Healthcare
-          </motion.h1>
+
           <motion.p 
             className="text-xl text-white/90 font-medical"
             initial={{ opacity: 0 }}
@@ -113,29 +164,64 @@ const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
           transition={{ delay: 1.5, duration: 0.8 }}
           className="w-80 mx-auto space-y-4"
         >
-          {/* Progress Bar */}
+          {/* ECG Style Progress Bar */}
           <div className="relative">
-            <div className="w-full h-2 bg-white/20 rounded-full overflow-hidden">
+            <div className="w-full h-16 bg-transparent rounded-lg overflow-hidden">
+              {/* ECG Grid Lines */}
+              <div className="absolute inset-0 grid grid-cols-12 grid-rows-4 opacity-10">
+                {Array.from({ length: 48 }).map((_, i) => (
+                  <div key={i} className="border-r border-white/20" />
+                ))}
+              </div>
+              
+              {/* ECG Wave Animation */}
               <motion.div
-                className="h-full bg-gradient-to-r from-white to-primary-light rounded-full"
+                className="relative h-full"
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
                 transition={{ ease: "easeOut" }}
-              />
+              >
+                <svg
+                  className="absolute inset-0 w-full h-full"
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="none"
+                >
+                  <motion.path
+                    d="M0,50 L10,30 L20,70 L30,20 L40,80 L50,40 L60,60 L70,30 L80,70 L90,50 L100,50"
+                    stroke="url(#ecgGradient)"
+                    strokeWidth="4"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: progress / 100 }}
+                    transition={{ ease: "easeOut" }}
+                  />
+                  <defs>
+                    <linearGradient id="ecgGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#10b981" />
+                      <stop offset="50%" stopColor="#059669" />
+                      <stop offset="100%" stopColor="#047857" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                
+                {/* Heartbeat Pulse */}
+                <motion.div
+                  className="absolute top-1/2 w-3 h-3 bg-red-500 rounded-full shadow-lg"
+                  style={{ left: `${progress}%` }}
+                  animate={{ 
+                    scale: [1, 2.5, 1],
+                    opacity: [1, 0.6, 1]
+                  }}
+                  transition={{ 
+                    duration: 0.8,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+              </motion.div>
             </div>
-            <motion.div
-              className="absolute -top-1 w-4 h-4 bg-white rounded-full shadow-glow"
-              style={{ left: `${progress}%` }}
-              animate={{ 
-                scale: [1, 1.2, 1],
-                boxShadow: [
-                  "0 0 10px rgba(255,255,255,0.5)",
-                  "0 0 20px rgba(255,255,255,0.8)",
-                  "0 0 10px rgba(255,255,255,0.5)"
-                ]
-              }}
-              transition={{ duration: 1, repeat: Infinity }}
-            />
           </div>
 
           {/* Loading Text */}
@@ -160,38 +246,7 @@ const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
           </motion.div>
         </motion.div>
 
-        {/* Medical Icons Animation */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
-          className="flex justify-center space-x-8 mt-12"
-        >
-          {[
-            { icon: "⚕️", delay: 0 },
-            { icon: "🏥", delay: 0.2 },
-            { icon: "🩺", delay: 0.4 },
-            { icon: "💊", delay: 0.6 },
-            { icon: "🧬", delay: 0.8 }
-          ].map((item, index) => (
-            <motion.div
-              key={index}
-              className="text-3xl"
-              animate={{ 
-                y: [0, -15, 0],
-                rotate: [0, 10, -10, 0]
-              }}
-              transition={{ 
-                delay: item.delay,
-                duration: 2,
-                repeat: Infinity,
-                repeatDelay: 1
-              }}
-            >
-              {item.icon}
-            </motion.div>
-          ))}
-        </motion.div>
+
       </div>
 
       {/* Background Medical Pattern */}
